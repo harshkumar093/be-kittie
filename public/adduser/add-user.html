@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <H1>ADD USER</H1>
+  ID: <div id="id">0</div> <br><br><br>
+  Enter Your name:<input type="text" name="name" id="name"><br><br><br>
+  Enter Your active status:<input type="text" name="status" id="status"><br><br><br>
+  <button onclick="adduser()">Submit</button>
+</body>
+<script>
+  const id = document.getElementById("iid");
+  const name = document.getElementById("name");
+  const status = document.getElementById("status");
+
+
+  function adduser() {
+
+    id.innerHTML = parseInt(id.innerHTML) + 1; 
+
+    const payload = {
+      id: parseInt(id.innerHTML),
+      status: status.value,
+    };
+
+    fetch(`/api/adduser?name=${name.value}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.statusCode == 200) {
+          alert("User added successfully");
+        } else {
+          alert("Failed to add the user");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Failed to make successful request");
+      });
+  }
+</script>
+
+</html>

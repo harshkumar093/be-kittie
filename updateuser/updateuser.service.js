@@ -8,7 +8,8 @@ function updateuser(res,name){
     {
         res.status(500).json(Message(500, "users not found.", null));
     }
-    let response=userdata.find((item)=>item.name==name)[0];
+    let response=userdata.find((item)=>item.name==name);
+    console.log(response);
     if (response)
     {
         response.status = response.status.toLowerCase() === 'true' ? 'false' : 'true';

@@ -12,7 +12,8 @@ const adduser=(res,nam,id,status)=>{
         status:status
     }
     userdata.push(payload);
-    fs.writeFile("users.json",JSON.stringify(userdata),()=>{
+    console.log(userdata);
+    fs.writeFileSync("./database/users.json",JSON.stringify(userdata),()=>{
         console.log("file updated");
     });
     res.status(200).json(Message(200, "Success"));

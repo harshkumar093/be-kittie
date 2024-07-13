@@ -1,5 +1,6 @@
 const express=require("express");
 const { Message } = require("../util/Constants");
+const { updateuser } = require("./updateuser.service");
 const routerupdateuser =express.Router();
 
 routerupdateuser.patch("",(req,res)=>{

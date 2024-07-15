@@ -10,18 +10,22 @@
 <body>
     <h1>UPDATE USER</h1> <br> <br>
     Enter the name: <input type="text" name="name" id="name">
-    <button onclick="update()">Sumbit</button>
+    <button onclick="update()">Sumbit</button> <br>
+    <div id="message"> </div>
 </body>
 <script>
     const name = document.getElementById("name");
+    const message = document.getElementById("message");
     function update() {
-        fetch(`/api/updateuser?name=${name.value}`, {
+        fetch(`/api/user?name=${name.value}`, {
             method: "PATCH"
         })
-        .then((res) => res.json())
+        .then((res) => res.json()) 
         .then((data)=>{
-            
+            console.log(data.name);
+            message.innerHTML=`The Name:${data.name} has been updated`;
         })
+        .catch(err=>console.log(error));
     }
 </script>
 

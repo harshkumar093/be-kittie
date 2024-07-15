@@ -8,28 +8,25 @@
 </head>
 
 <body>
-  <H1>ADD USER</H1>
-  ID: <div id="id">0</div> <br><br><br>
+  <H1>ADD USER</H1> <br><br><br>
   Enter Your name:<input type="text" name="name" id="name"><br><br><br>
   Enter Your active status:<input type="text" name="status" id="status"><br><br><br>
   <button onclick="adduser()">Submit</button>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
 </body>
 <script>
-  const id = document.getElementById("id");
   const name = document.getElementById("name");
   const status = document.getElementById("status");
 
-
   function adduser() {
-
-    id.innerHTML = parseInt(id.innerHTML) + 1; 
+    const userId = uuid.v4();
 
     const payload = {
-      id: parseInt(id.innerHTML),
+      id: userId,
       status: status.value,
     };
 
-    fetch(`/api/adduser?name=${name.value}`, {
+    fetch(`/api/user?name=${name.value}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -38,7 +35,7 @@
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.statusCode == 200) {
+        if (data.statuscode == 200) {
           alert("User added successfully");
         } else {
           alert("Failed to add the user");

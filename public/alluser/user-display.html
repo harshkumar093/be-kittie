@@ -1,38 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <h1>DISPLAY ALL USERS</h1> <br> <br>
     <button onclick="Display()">Display</button> <br> <br>
-    <div class="container">
-        <div id="id"></div> <br>
-        <div id="name"></div> <br>
-        <div id="status"></div>
+    <div id="container">
+
     </div>
 </body>
 <script>
-    function Display()
-    {
-        const id=document.getElementById("id");
-        const name=document.getElementById("name");
-        const status=document.getElementById("status");
+    function Display() {
+        const id = document.getElementById("id");
+        const name = document.getElementById("name");
+        const status = document.getElementById("status");
 
-        fetch("/api/alluser",{
-            method:"POST"
+        fetch("/api/user", {
+            method: "GET"
         })
-        .then((res)=>res.json())
-        .then((data)=>{
-            let users=data.data;
-            users.forEach(user=>{
-                id.textContent=`ID:${user.id}`;
-                name.textContent=`NAME:${user.name}`;
-                status.textContent=`STATUS:${user.status}`;
+            .then((res) => res.json())
+            .then((data) => {
+                let users = data.data;
+                users.forEach(user => {
+                    let userDiv = document.createElement("div");
+                    let idDiv = document.createElement("div");
+                    idDiv.textContent = `ID: ${user.id}`;
+
+                    let nameDiv = document.createElement("div");
+                    nameDiv.textContent = `NAME: ${user.name}`;
+
+                    let statusDiv = document.createElement("div");
+                    statusDiv.textContent = `STATUS: ${user.status}`;
+
+                    userDiv.appendChild(idDiv);
+                    userDiv.appendChild(nameDiv);
+                    userDiv.appendChild(statusDiv);
+
+                    container.appendChild(userDiv);
+                })
             })
-        })
     }
 </script>
+
 </html>
